@@ -1,26 +1,45 @@
 {
-  "name": "openai-mcp",
-  "version": "1.0.0",
-  "description": "OpenAI Model Connection Proxy for Smithery",
-  "main": "server.js",
-  "bin": {
-    "openai-mcp": "./server.js"
+  "name": "@mzxrai/mcp-openai",
+  "version": "0.1.1",
+  "description": "MCP server for simple interaction with OpenAI API",
+  "license": "MIT",
+  "author": "mzxrai",
+  "homepage": "https://github.com/mzxrai/mcp-openai",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mzxrai/mcp-openai.git"
   },
+  "bugs": "https://github.com/mzxrai/mcp-openai/issues",
+  "type": "module",
+  "bin": {
+    "mcp-server-webresearch": "dist/index.js"
+  },
+  "files": [
+    "dist"
+  ],
   "scripts": {
-    "start": "node server.js"
+    "build": "tsc && shx chmod +x dist/*.js",
+    "prepare": "pnpm run build",
+    "watch": "tsc --watch",
+    "dev": "tsx watch index.ts"
+  },
+  "publishConfig": {
+    "access": "public"
   },
   "keywords": [
-    "openai",
     "mcp",
-    "smithery",
-    "jsonrpc"
+    "model-context-protocol",
+    "openai",
+    "o1",
+    "ai"
   ],
-  "author": "",
-  "license": "MIT",
   "dependencies": {
-    "openai": "^4.24.1"
+    "@modelcontextprotocol/sdk": "1.0.1",
+    "openai": "^4.76.0"
   },
-  "engines": {
-    "node": ">=18.0.0"
+  "devDependencies": {
+    "shx": "^0.3.4",
+    "tsx": "^4.19.2",
+    "typescript": "^5.6.2"
   }
 }

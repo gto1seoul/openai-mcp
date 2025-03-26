@@ -1,35 +1,115 @@
-# OpenAI MCP for Smithery
+# MCP OpenAI Server
 
-이 저장소는 Smithery와 완벽하게 호환되는 OpenAI Model Connection Proxy(MCP) 구현입니다. MCP를 통해 Claude가 다양한 OpenAI 모델에 접근할 수 있습니다.
+A Model Context Protocol (MCP) server that lets you seamlessly use OpenAI's models right from Claude.
 
-## 지원하는 모델
+## Features
 
-- gpt-4o
+- Direct integration with OpenAI's chat models
+- Support for multiple models including:
+  - gpt-4o
+  - gpt-4o-mini
+  - o1-preview
+  - o1-mini
+- Simple message passing interface
+- Basic error handling
+
+## Prerequisites
+
+- [Node.js](https://nodejs.org/) >= 18 (includes `npm` and `npx`)
+- [Claude Desktop app](https://claude.ai/download)
+- [OpenAI API key](https://platform.openai.com/api-keys)
+
+## Installation
+
+First, make sure you've got the [Claude Desktop app](https://claude.ai/download) installed and you've requested an [OpenAI API key](https://platform.openai.com/api-keys).
+
+Add this entry to your `claude_desktop_config.json` (on Mac, you'll find it at `~/Library/Application\ Support/Claude/claude_desktop_config.json`):
+
+```json
+{
+  "mcpServers": {
+    "mcp-openai": {
+      "command": "npx",
+      "args": ["-y", "@mzxrai/mcp-openai@latest"],
+      "env": {
+        "OPENAI_API_KEY": "your-api-key-here (get one from https://platform.openai.com/api-keys)"
+      }
+    }
+  }
+}
+```
+
+This config lets Claude Desktop fire up the OpenAI MCP server whenever you need it.
+
+## Usage
+
+Just start chatting with Claude and when you want to use OpenAI's models, ask Claude to use them. 
+
+For example, you can say,
+
+```plaintext
+Can you ask o1 what it thinks about this problem?
+```
+
+or,
+
+```plaintext
+What does gpt-4o think about this?
+```
+
+The server currently supports these models:
+
+- gpt-4o (default)
 - gpt-4o-mini
-- gpt-4.5-preview
-- gpt-4-turbo
 - o1-preview
 - o1-mini
-- o3-mini
 
-## Smithery 배포 방법
+### Tools
 
-1. GitHub에 이 저장소를 푸시합니다.
-2. Smithery 웹사이트에서 새 MCP 서버를 생성합니다.
-3. GitHub 저장소를 연결합니다.
-4. 구성에서 OpenAI API 키를 설정합니다.
-5. 배포 버튼을 클릭합니다.
+1. `openai_chat`
+   - Sends messages to OpenAI's chat completion API
+   - Arguments: 
+     - `messages`: Array of messages (required)
+     - `model`: Which model to use (optional, defaults to gpt-4o)
 
-## 구현 세부 정보
+## Problems
 
-- JSON-RPC 2.0 프로토콜 사용
-- 지원하는 MCP 프로토콜 버전: 2024-11-05
-- 지원하는 메소드: initialize, chat, get_models
+This is alpha software, so may have bugs. If you have an issue, check Claude Desktop's MCP logs:
 
-## 디버깅
+```bash
+tail -n 20 -f ~/Library/Logs/Claude/mcp*.log
+```
 
-오류가 발생하면 Smithery 로그에서 `[DEBUG]` 접두어가 붙은 메시지를 확인하세요.
+## Development
 
-## 라이센스
+```bash
+# Install dependencies
+pnpm install
+
+# Build the project
+pnpm build
+
+# Watch for changes
+pnpm watch
+
+# Run in development mode
+pnpm dev
+```
+
+## Requirements
+
+- Node.js >= 18
+- OpenAI API key
+
+## Verified Platforms
+
+- [x] macOS
+- [ ] Linux
+
+## License
 
 MIT
+
+## Author
+
+[mzxrai](https://github.com/mzxrai) 
