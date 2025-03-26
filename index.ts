@@ -25,12 +25,9 @@ const openai = new OpenAI({
 });
 
 // Define supported models
-const SUPPORTED_MODELS = ["gpt-4o", "gpt-4.5-preview", "o3-mini", "o1", "o1-mini"] as const;
+const SUPPORTED_MODELS = ["gpt-4o", "gpt-4.5-preview", "o1", "o3-mini"] as const;
 const DEFAULT_MODEL = "gpt-4o" as const;
 type SupportedModel = typeof SUPPORTED_MODELS[number];
-
-// Models that support reasoning_effort parameter
-const REASONING_MODELS = ["o3-mini", "o1"];
 
 // Define available tools
 const TOOLS: Tool[] = [
@@ -114,19 +111,11 @@ server.setRequestHandler(CallToolRequestSchema, async (request): Promise<{
                     content: msg.content
                 }));
 
-                // Create options object with base parameters
-                const options: any = {
+                // Call OpenAI API with fixed temperature
+                const completion = await openai.chat.completions.create({
                     messages,
                     model: model!
-                };
-                
-                // Add reasoning_effort=high for models that support it
-                if (REASONING_MODELS.includes(model!)) {
-                    options.reasoning_effort = "high";
-                }
-                
-                // Call OpenAI API with our options
-                const completion = await openai.chat.completions.create(options);
+                });
 
                 // Return the response
                 return {
