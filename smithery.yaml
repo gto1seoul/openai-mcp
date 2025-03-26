@@ -15,7 +15,6 @@ startCommand:
         "server.js"
       ],
       "env": {
-        "OPENAI_API_KEY": config.OPENAI_API_KEY,
-        "PORT": "8080"
+        "OPENAI_API_KEY": config.OPENAI_API_KEY
       }
     })
