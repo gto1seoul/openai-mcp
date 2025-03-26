@@ -1,0 +1,11 @@
+{
+  "type": "chat",
+  "data": {
+    "model": "gpt-4o",
+    "messages": [
+      {"role": "system", "content": "You are a helpful assistant."},
+      {"role": "user", "content": "Hello, what can you do?"}
+    ],
+    "temperature": 0.7
+  }
+}

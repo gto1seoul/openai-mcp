@@ -1,7 +1,21 @@
-name: openai-mcp
-
-services:
-  api:
-    port: 8080
-    env:
-      OPENAI_API_KEY: ${OPENAI_API_KEY}
+# Smithery.ai configuration
+startCommand:
+  type: stdio
+  configSchema:
+    type: object
+    properties:
+      OPENAI_API_KEY:
+        type: string
+        description: "Your OpenAI API key"
+    required: ["OPENAI_API_KEY"]
+  commandFunction: |-
+    (config) => ({
+      "command": "node",
+      "args": [
+        "server.js"
+      ],
+      "env": {
+        "OPENAI_API_KEY": config.OPENAI_API_KEY,
+        "PORT": "8080"
+      }
+    })

@@ -8,8 +8,8 @@ RUN npm install
 
 COPY . .
 
-ENV PORT=8080
+# Smithery에서는 환경 변수를 통해 설정되므로 기본값은 제거
+ENV SMITHERY_STDIO_MODE=true
 
-EXPOSE 8080
-
-CMD [ "node", "server.js" ]
+# 명시적 CMD 설정
+CMD ["node", "server.js"]

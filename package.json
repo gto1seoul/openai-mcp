@@ -1,10 +1,11 @@
 {
   "name": "openai-mcp",
   "version": "1.0.0",
-  "description": "Model Connection Proxy for OpenAI models",
+  "description": "Smithery-compatible OpenAI Model Connection Proxy",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
+    "start:stdio": "SMITHERY_STDIO_MODE=true node server.js",
     "dev": "nodemon server.js"
   },
   "keywords": [
@@ -12,7 +13,8 @@
     "proxy",
     "api",
     "claude",
-    "smithery"
+    "smithery",
+    "mcp"
   ],
   "author": "",
   "license": "MIT",
