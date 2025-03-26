@@ -4,12 +4,12 @@ WORKDIR /app
 
 COPY package*.json ./
 
-RUN npm install
+RUN npm install --production
 
 COPY . .
 
-# Smithery에서는 환경 변수를 통해 설정되므로 기본값은 제거
-ENV SMITHERY_STDIO_MODE=true
+RUN chmod +x server.js
 
-# 명시적 CMD 설정
+ENV NODE_ENV=production
+
 CMD ["node", "server.js"]

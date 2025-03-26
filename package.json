@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "OpenAI Model Connection Proxy for Smithery",
   "main": "server.js",
+  "bin": {
+    "openai-mcp": "./server.js"
+  },
   "scripts": {
     "start": "node server.js"
   },
@@ -16,5 +19,8 @@
   "license": "MIT",
   "dependencies": {
     "openai": "^4.24.1"
+  },
+  "engines": {
+    "node": ">=18.0.0"
   }
 }

@@ -6,14 +6,13 @@ startCommand:
     properties:
       OPENAI_API_KEY:
         type: string
-        description: "Your OpenAI API key"
+        title: "OpenAI API Key"
+        description: "Your OpenAI API key for accessing OpenAI models"
     required: ["OPENAI_API_KEY"]
   commandFunction: |-
     (config) => ({
       "command": "node",
-      "args": [
-        "server.js"
-      ],
+      "args": ["server.js"],
       "env": {
         "OPENAI_API_KEY": config.OPENAI_API_KEY
       }
