@@ -36,6 +36,26 @@ const SUPPORTED_MODELS = [
   'o3-mini'
 ];
 
+// 프로세스 종료 방지
+process.stdin.resume();
+
+// 프로세스 시그널 처리
+process.on('SIGINT', () => {
+  log('Received SIGINT signal. Shutting down gracefully...');
+  process.exit(0);
+});
+
+process.on('SIGTERM', () => {
+  log('Received SIGTERM signal. Shutting down gracefully...');
+  process.exit(0);
+});
+
+// 예상치 못한 오류 처리
+process.on('uncaughtException', (err) => {
+  log(`Uncaught exception: ${err.message}`);
+  log(err.stack);
+});
+
 // readline 인터페이스 설정
 const rl = readline.createInterface({
   input: process.stdin,
@@ -223,5 +243,16 @@ rl.on('line', async (line) => {
   }
 });
 
+// readline 클로즈 이벤트 방지
+rl.on('close', () => {
+  log('readline interface closed, but keeping process alive');
+  // 프로세스를 종료하지 않고 유지
+});
+
+// 주기적으로 살아있음 신호 보내기 (서버가 활성 상태임을 확인)
+setInterval(() => {
+  log('MCP server still alive and waiting for requests');
+}, 30000); // 30초마다
+
 // 서버 준비 완료
-log('MCP server ready');
+log('MCP server ready and waiting for requests');
