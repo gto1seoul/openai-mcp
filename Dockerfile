@@ -1,15 +1,23 @@
-FROM node:18-alpine
+FROM node:20-slim
 
 WORKDIR /app
 
-COPY package*.json ./
+# Install required tools
+RUN npm install -g pnpm
 
-RUN npm install --production
+# Copy package files and install dependencies
+COPY package.json pnpm-lock.yaml ./
+RUN pnpm install --frozen-lockfile
 
+# Copy source code
 COPY . .
 
-RUN chmod +x server.js
+# Build TypeScript
+RUN pnpm build
 
-ENV NODE_ENV=production
+# Set environment variable for OpenAI API key
+# This will be overridden by the actual key at runtime
+ENV OPENAI_API_KEY=""
 
-CMD ["node", "server.js"]
+# Run the MCP server
+CMD ["node", "dist/index.js"]
