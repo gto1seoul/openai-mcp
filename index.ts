@@ -25,7 +25,7 @@ const openai = new OpenAI({
 });
 
 // Define supported models
-const SUPPORTED_MODELS = ["gpt-4o", "gpt-4.5-preview", "o1", "o3-mini"] as const;
+const SUPPORTED_MODELS = ["gpt-4o", "gpt-4o-mini", "o1-preview", "o1-mini"] as const;
 const DEFAULT_MODEL = "gpt-4o" as const;
 type SupportedModel = typeof SUPPORTED_MODELS[number];
 
