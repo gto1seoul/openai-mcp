@@ -1,15 +1,15 @@
 {
-  "name": "@mzxrai/mcp-openai",
+  "name": "@gto1seoul/openai-mcp",
   "version": "0.1.1",
   "description": "MCP server for simple interaction with OpenAI API",
   "license": "MIT",
-  "author": "mzxrai",
-  "homepage": "https://github.com/mzxrai/mcp-openai",
+  "author": "gto1seoul-mcp",
+  "homepage": "https://github.com/gto1seoul/openai-mcp",
   "repository": {
     "type": "git",
-    "url": "https://github.com/mzxrai/mcp-openai.git"
+    "url": "https://github.com/gto1seoul/openai-mcp"
   },
-  "bugs": "https://github.com/mzxrai/mcp-openai/issues",
+  "bugs": "https://github.com/gto1seoul/openai-mcp",
   "type": "module",
   "bin": {
     "mcp-server-webresearch": "dist/index.js"
