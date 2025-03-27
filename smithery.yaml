@@ -1,16 +1,18 @@
-version: "1"
-name: "mcp-openai"
-description: "MCP server for simple interaction with OpenAI API"
-
-services:
-  mcp-openai:
-    build: .
-    environment:
-      - OPENAI_API_KEY=${OPENAI_API_KEY}
-
-# Smithery connection settings
-connection:
-  type: "mcp"
-  protocol: "stdio"
-  command: "node"
-  args: ["dist/index.js"]
+# Smithery.ai configuration
+startCommand:
+  type: stdio
+  configSchema:
+    # JSON Schema defining the configuration options for the MCP.
+    {}
+  commandFunction:
+    # A function that produces the CLI command to start the MCP on stdio.
+    |-
+    (config) => ({
+      "command": "node",
+      "args": [
+        "dist/index.js"
+      ],
+      "env": {
+        "OPENAI_API_KEY": process.env.OPENAI_API_KEY || ""
+      }
+    })
