@@ -1,23 +1,20 @@
-FROM node:20-slim
+FROM node:18-alpine
 
 WORKDIR /app
 
-# Install required tools
-RUN npm install -g pnpm
+# Copy package files
+COPY package*.json ./
+COPY pnpm-lock.yaml ./
 
-# Copy package files and install dependencies
-COPY package.json pnpm-lock.yaml ./
-RUN pnpm install --frozen-lockfile
+# Install pnpm and dependencies
+RUN npm install -g pnpm && \
+    pnpm install
 
-# Copy source code
+# Copy application code
 COPY . .
 
-# Build TypeScript
-RUN pnpm build
+# Build the application
+RUN pnpm run build
 
-# Set environment variable for OpenAI API key
-# This will be overridden by the actual key at runtime
-ENV OPENAI_API_KEY=""
-
-# Run the MCP server
+# Command will be provided by smithery.yaml
 CMD ["node", "dist/index.js"]
